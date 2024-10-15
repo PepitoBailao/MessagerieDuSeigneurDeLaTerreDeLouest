@@ -32,7 +32,3 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
-
-//coucou !
-
-//saluuuut
