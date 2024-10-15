@@ -1,5 +1,6 @@
 plugins {
-    alias(libs.plugins.android.application)
+    id("com.android.application")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -36,6 +37,9 @@ dependencies {
     implementation("com.google.firebase:firebase-auth:21.0.1")
     // Bibliothèque pour ajuster la taille des éléments en fonction de la densité d'écran
     implementation("com.intuit.sdp:sdp-android:1.1.1")
+
+    implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
+    implementation("com.google.firebase:firebase-analytics")
 
     implementation(libs.appcompat)
     implementation(libs.material)
