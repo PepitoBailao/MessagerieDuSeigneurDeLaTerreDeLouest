@@ -17,6 +17,9 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth auth; // déclaration d'une variable "auth" qui est de type "FirebaseAuth" qui sert à gérer l'authentification
 
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,5 +32,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
+
+//coucou !
 
 //saluuuut
