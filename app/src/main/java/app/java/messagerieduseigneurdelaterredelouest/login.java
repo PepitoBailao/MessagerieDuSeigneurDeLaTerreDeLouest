@@ -41,13 +41,13 @@ public class login extends AppCompatActivity {
                 String pass = password.getText().toString();
 
                 // Vérification des champs
-                if (TextUtils.isEmpty(Email)) {
+                if (TextUtils.isEmpty(Email)) { // si le champ Email est vide, renvoyer un message
                     Toast.makeText(login.this, "Entrez votre Email", Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(pass)) {
+                } else if (TextUtils.isEmpty(pass)) { // si le champ mdp est vide, renvoyer un message
                     Toast.makeText(login.this, "Entrez votre mot de passe", Toast.LENGTH_SHORT).show();
-                } else if (!Email.matches(emailPattern)) {
+                } else if (!Email.matches(emailPattern)) { //si l'email rentrée ne correspond pas au pattern, envoyer une erreur
                     email.setError("Email invalide");
-                } else if (pass.length() < 4) {
+                } else if (pass.length() < 4) { // si le mot de passe est plus petit que 4 caractères, renvoyer une erreur
                     password.setError("Mot de passe trop court");
                 } else {
                     // Authentification avec Firebase
