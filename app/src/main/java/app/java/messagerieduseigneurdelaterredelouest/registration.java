@@ -96,8 +96,7 @@ public class registration extends AppCompatActivity {
                                     }
                                 });
                             }
-
-                            }
+                        }
                     });
                 }
             }
