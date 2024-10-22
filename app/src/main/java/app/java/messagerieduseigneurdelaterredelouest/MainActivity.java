@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance(); // initialisation de l'objet "auth" pour faire des vérifications
         if (auth.getCurrentUser() == null){ //si un utilisateur n'est pas connecté
-            Intent intent = new Intent(MainActivity.this, login.class); // création d'un intent pour le rediriger vers la page de connexion
+            Intent intent = new Intent(MainActivity.this, registration.class); // création d'un intent pour le rediriger vers la page de connexion
             startActivity(intent); // envoie de l'utilisateur vers la page de connexion.
         }
     }
