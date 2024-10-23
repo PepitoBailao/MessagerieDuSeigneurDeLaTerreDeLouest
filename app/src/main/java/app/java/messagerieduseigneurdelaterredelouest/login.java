@@ -40,6 +40,18 @@ public class login extends AppCompatActivity {
                 String Email = email.getText().toString();
                 String pass = password.getText().toString();
 
+        //Gestion du clic sur le boutton de register
+                registerbutton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(login.this, register.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+
+
+
                 // Vérification des champs
                 if (TextUtils.isEmpty(Email)) { // si le champ Email est vide, renvoyer un message
                     Toast.makeText(login.this, "Entrez votre Email", Toast.LENGTH_SHORT).show();
@@ -54,12 +66,10 @@ public class login extends AppCompatActivity {
                     auth.signInWithEmailAndPassword(Email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Redirection vers la page principale en cas de succès
-                                try {
-                                    Intent intent = new Intent(login.this, MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                            if (task.isSuccessful()){
+                                Intent intent = new Intent(login.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
                                 } catch (Exception e) {
                                     Toast.makeText(login.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
