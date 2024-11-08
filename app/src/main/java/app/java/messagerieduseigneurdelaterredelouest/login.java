@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class login extends AppCompatActivity {
+    TextView registerbutton;
     Button button; // Bouton de connexion
     EditText email, password; // Champs de saisie pour l'email et le mot de passe
     FirebaseAuth auth; // Objet pour gérer l'authentification Firebase
@@ -32,6 +34,17 @@ public class login extends AppCompatActivity {
         button = findViewById(R.id.Logbutton);
         email = findViewById(R.id.editTextLogEmailAddress);
         password = findViewById(R.id.editTextLogPassword);
+        registerbutton = findViewById(R.id.textView7);
+
+        // Gestion du clic sur le bouton de connexion
+        registerbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(login.this, registration.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         // Gestion du clic sur le bouton de connexion
         button.setOnClickListener(new View.OnClickListener() {
