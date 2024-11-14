@@ -2,6 +2,7 @@ package app.java.messagerieduseigneurdelaterredelouest;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,18 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseAuth auth; // déclaration d'une variable "auth" qui est de type "FirebaseAuth" qui sert à gérer l'authentification
 
+    //Partie Logout
+    ImageView imglogout;
+    imglogout=findViewById(R.id.logoutimg);
+
+    imglogout.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(MainActivity.this, login.class);
+            startActivity(intent);
+            finish();
+        }
+    });
 
 
 

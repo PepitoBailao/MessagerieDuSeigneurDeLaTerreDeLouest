@@ -87,7 +87,8 @@ public class registration extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()){
-                                            Intent intent = new Intent(registration.this, MainActivity.class);
+                                            Intent intent = new Intent(registration.this, login.class);
+                                            Toast.makeText(registration.this, "Compte crée", Toast.LENGTH_SHORT).show();
                                             startActivity(intent);
                                             finish();
                                         }else {
