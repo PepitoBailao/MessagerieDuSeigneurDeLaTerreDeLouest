@@ -41,7 +41,7 @@
             android:layout_gravity="center"
             android:layout_marginRight="@dimen/_10sdp"
             android:background="@drawable/logout"
-            android:transitionName="loout_img" />
+            android:transitionName="logout_img" />
 
     </LinearLayout>
 
