@@ -2,6 +2,7 @@ package app.java.messagerieduseigneurdelaterredelouest;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -23,10 +24,12 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
     ImageView imglogout;
+    ImageView imgchat;
     RecyclerView mainUserRecyclerView;
     UtilisateurAdapter adapter;
     FirebaseDatabase database;
     ArrayList<Utilisateurs> utilisateursArrayList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,19 +46,27 @@ public class MainActivity extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot: snapshot.getChildren())
-                {
+                utilisateursArrayList.clear(); // Efface les anciennes données
+                Log.d("testttttt", "Snapshot size: " + snapshot.getChildrenCount());
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Utilisateurs utilisateurs = dataSnapshot.getValue(Utilisateurs.class);
-                    utilisateursArrayList.add(utilisateurs);
+                    if (utilisateurs != null) {
+                        utilisateursArrayList.add(utilisateurs);
+                        Log.d("MainActivity", "UserName: " + utilisateurs.getUserName());
+                    } else {
+                        Log.e("MainActivity", "Utilisateur null !");
+                    }
                 }
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.e("MainActivity", "Erreur Firebase : " + error.getMessage());
             }
         });
+
+        Log.d("MainActivity", "utilisateursArrayList size: " + utilisateursArrayList.size());
 
         mainUserRecyclerView = findViewById(R.id.mainUserRecyclerView);
         mainUserRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -74,6 +85,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 auth.signOut();
                 startActivity(new Intent(MainActivity.this, login.class));
+                finish();
+            }
+        });
+
+        imgchat = findViewById(R.id.chatimg);
+        imgchat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Chat.class);
+                startActivity(intent);
                 finish();
             }
         });

@@ -4,9 +4,9 @@ public class Utilisateurs {
     String mail, userName, password, userId, lastMessage;
 
     // Constructeur sans "re_password", car ce champ n'a pas besoin d'être stocké dans la base de données
-    public Utilisateurs(String userId, String name, String email, String password) {
+    public Utilisateurs(String userId, String userName, String email, String password) {
         this.userId = userId;
-        this.userName = name;
+        this.userName = userName;
         this.mail = email;
         this.password = password;
     }
