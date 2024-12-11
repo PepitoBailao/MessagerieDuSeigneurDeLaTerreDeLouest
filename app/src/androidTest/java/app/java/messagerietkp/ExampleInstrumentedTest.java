@@ -1,4 +1,4 @@
-package app.java.messagerieduseigneurdelaterredelouest;
+package app.java.messagerietkp;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("app.java.messagerieduseigneurdelaterredelouest", appContext.getPackageName());
+        assertEquals("app.java.messagerietkp", appContext.getPackageName());
     }
 }

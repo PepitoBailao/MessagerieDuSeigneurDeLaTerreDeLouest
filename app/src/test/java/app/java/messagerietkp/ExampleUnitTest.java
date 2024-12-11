@@ -1,4 +1,4 @@
-package app.java.messagerieduseigneurdelaterredelouest;
+package app.java.messagerietkp;
 
 import org.junit.Test;
 

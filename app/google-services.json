@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "72571991371",
+    "firebase_url": "https://messageriesi-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "messageriesi",
+    "storage_bucket": "messageriesi.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:72571991371:android:f5ae83d287d61cf24e64ce",
+        "android_client_info": {
+          "package_name": "app.java.messageriesimple"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARN_npemeDu84eXVpNsRF9RoDf02_nTCc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:72571991371:android:f7911107e816859e4e64ce",
+        "android_client_info": {
+          "package_name": "app.java.messagerietkp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARN_npemeDu84eXVpNsRF9RoDf02_nTCc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
