@@ -1,6 +1,6 @@
 # Messagerie du Seigneur de la Terre de l’Ouest
 
-Une application Android simple de messagerie permettant aux utilisateurs de s'inscrire, de se connecter, d'envoyer des messages, de liker des messages et de voir les messages triés par nombre de likes. L'application utilise Firebase pour l'authentification et la gestion des données.
+Une application Android de messagerie permettant aux utilisateurs de s'inscrire, de se connecter, d'envoyer des messages, de liker des messages et de voir les messages triés par nombre de likes. L'application utilise Firebase pour l'authentification et la gestion des données.
 
 ---
 
@@ -11,7 +11,6 @@ Une application Android simple de messagerie permettant aux utilisateurs de s'in
 - **Like des messages** : Chaque utilisateur peut liker un message une seule fois.
 - **Tri automatique des messages** : Les messages les plus likés apparaissent en haut de la liste.
 - **Déconnexion rapide** : Fonctionnalité de déconnexion avec une icône dédiée.
-- **Interface utilisateur moderne** : Design épuré avec une barre d’en-tête.
 
 ---
 
@@ -42,14 +41,10 @@ Une application Android simple de messagerie permettant aux utilisateurs de s'in
 ## Captures d'Écran
 
 ### Page de Connexion
-![Login Page](path/to/login-screenshot.png)
+https://github.com/user-attachments/assets/5cf78816-997c-444a-8c7a-e901133bb47e
 
-### Interface Principale![login-screenshot](https://github.com/user-attachments/assets/5cf78816-997c-444a-8c7a-e901133bb47e)
-![main-screenshot](https://github.com/user-attachments/assets/8ac8d904-7ebc-46fd-82cc-9823807afd52)
-
-![Main Screen](path/to/main-screenshot.png)
-
-*(Ajoutez vos propres captures d'écran si nécessaire.)*
+### Interface Principale!
+https://github.com/user-attachments/assets/8ac8d904-7ebc-46fd-82cc-9823807afd52
 
 ---
 
