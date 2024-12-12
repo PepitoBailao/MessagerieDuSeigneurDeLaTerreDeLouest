@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="app.java.messagerietkp" />
-                  <option name="mobileSdkAppId" value="1:72571991371:android:f7911107e816859e4e64ce" />
-                  <option name="projectId" value="messageriesi" />
-                  <option name="projectNumber" value="72571991371" />
+                  <option name="appId" value="PLACEHOLDER" />
+                  <option name="mobileSdkAppId" value="" />
+                  <option name="projectId" value="" />
+                  <option name="projectNumber" value="" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
