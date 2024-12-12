@@ -31,21 +31,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialisation
         messagesRef = FirebaseDatabase.getInstance().getReference("messages");
         messages = new ArrayList<>();
         adapter = new MessageAdapter(this, messages);
 
-        // Références UI
         EditText messageInput = findViewById(R.id.messageInput);
         Button sendButton = findViewById(R.id.sendMessageButton);
         ListView messageListView = findViewById(R.id.messageListView);
         ImageView logoutImg = findViewById(R.id.logoutimg);
 
-        // Définir l'adaptateur pour la liste
         messageListView.setAdapter(adapter);
 
-        // Envoi des messages
         sendButton.setOnClickListener(v -> {
             String messageText = messageInput.getText().toString().trim();
             if (!messageText.isEmpty()) {
@@ -61,10 +57,11 @@ public class MainActivity extends AppCompatActivity {
                             })
                             .addOnFailureListener(e -> Toast.makeText(this, "C'est l'envoi du message qui est un échec ou toi ?", Toast.LENGTH_SHORT).show());
                 }
+            } else {
+                Toast.makeText(this, "Veuillez entrer un message.", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // Déconnexion
         logoutImg.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();
             Toast.makeText(this, "Ca dégage !", Toast.LENGTH_SHORT).show();
@@ -72,21 +69,22 @@ public class MainActivity extends AppCompatActivity {
             finish();
         });
 
-        // Chargement des messages
-        messagesRef.addValueEventListener(new ValueEventListener() {
+        messagesRef.orderByChild("likes").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 messages.clear();
                 for (DataSnapshot data : snapshot.getChildren()) {
                     Message message = data.getValue(Message.class);
-                    if (message != null) messages.add(0, message);
+                    if (message != null) {
+                        messages.add(0, message);
+                    }
                 }
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(MainActivity.this, "Erreur de chargement", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Erreur lors du chargement des messages.", Toast.LENGTH_SHORT).show();
             }
         });
     }
