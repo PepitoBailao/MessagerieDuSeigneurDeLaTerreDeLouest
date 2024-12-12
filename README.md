@@ -28,7 +28,7 @@ Une application Android simple de messagerie permettant aux utilisateurs de s'in
 ## Installation et Exécution
 
 1. **Téléchargez l'APK** :
-   - [Télécharger l'APK ici](https://example.com/your-apk-download-link).
+   - [Télécharger l'APK ici](https://github.com/PepitoBailao/MessagerieDuSeigneurDeLaTerreDeLouest/releases/tag/apk).
 
 2. **Installer l'APK** :
    - Transférez le fichier APK sur votre appareil Android.
@@ -44,7 +44,9 @@ Une application Android simple de messagerie permettant aux utilisateurs de s'in
 ### Page de Connexion
 ![Login Page](path/to/login-screenshot.png)
 
-### Interface Principale
+### Interface Principale![login-screenshot](https://github.com/user-attachments/assets/5cf78816-997c-444a-8c7a-e901133bb47e)
+![main-screenshot](https://github.com/user-attachments/assets/8ac8d904-7ebc-46fd-82cc-9823807afd52)
+
 ![Main Screen](path/to/main-screenshot.png)
 
 *(Ajoutez vos propres captures d'écran si nécessaire.)*
