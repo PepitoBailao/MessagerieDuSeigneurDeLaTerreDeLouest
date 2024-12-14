@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
@@ -46,46 +45,47 @@ public class MessageAdapter extends android.widget.BaseAdapter {
 
         Message message = messages.get(position);
 
+        // Obtenir les vues
         TextView usernameText = convertView.findViewById(R.id.usernameText);
         TextView messageText = convertView.findViewById(R.id.messageText);
         TextView likeCount = convertView.findViewById(R.id.likeCount);
         Button likeButton = convertView.findViewById(R.id.likeButton);
 
-        usernameText.setText(message.getUsername());
+        // Définir les valeurs
+        usernameText.setText(message.getUsername()); // Affiche l'e-mail comme username
         messageText.setText(message.getText());
         likeCount.setText(String.valueOf(message.getLikes()));
 
-        // Gestion du like
-        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        boolean hasLiked = message.getLikedBy() != null && message.getLikedBy().containsKey(currentUserId);
-        likeButton.setBackgroundTintList(context.getResources().getColorStateList(
-                hasLiked ? R.color.blue : R.color.black));
-
-        likeButton.setOnClickListener(v -> {
-            DatabaseReference messageRef = FirebaseDatabase.getInstance()
-                    .getReference("messages")
-                    .child(message.getId());
-
-            if (hasLiked) {
-                // Unlike
-                message.getLikedBy().remove(currentUserId);
-                message.setLikes(message.getLikes() - 1);
-                likeButton.setBackgroundTintList(context.getResources().getColorStateList(R.color.black));
-            } else {
-                // Like
-                if (message.getLikedBy() == null) {
-                    message.setLikedBy(new java.util.HashMap<>());
-                }
-                message.getLikedBy().put(currentUserId, true);
-                message.setLikes(message.getLikes() + 1);
-                likeButton.setBackgroundTintList(context.getResources().getColorStateList(R.color.blue));
-            }
-
-            // Mettre à jour Firebase
-            messageRef.setValue(message);
-            likeCount.setText(String.valueOf(message.getLikes()));
-        });
+        // Gestion des likes
+        likeButton.setOnClickListener(v -> toggleLike(message, likeCount));
 
         return convertView;
+    }
+
+    private void toggleLike(Message message, TextView likeCount) {
+        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        if (message.getLikedBy() == null) {
+            message.setLikedBy(new java.util.HashMap<>());
+        }
+
+        boolean hasLiked = message.getLikedBy().containsKey(currentUserId);
+
+        if (hasLiked) {
+            // Unlike
+            message.getLikedBy().remove(currentUserId);
+            message.setLikes(message.getLikes() - 1);
+        } else {
+            // Like
+            message.getLikedBy().put(currentUserId, true);
+            message.setLikes(message.getLikes() + 1);
+        }
+
+        // Mettre à jour Firebase
+        FirebaseDatabase.getInstance().getReference("messages")
+                .child(message.getId())
+                .setValue(message);
+
+        likeCount.setText(String.valueOf(message.getLikes()));
     }
 }

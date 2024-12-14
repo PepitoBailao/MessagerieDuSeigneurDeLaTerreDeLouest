@@ -8,7 +8,26 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:326162715822:android:6198bb35ded2f8d41b093f",
+        "mobilesdk_app_id": "1:326162715822:android:8060ef760d93bbd61b093f",
+        "android_client_info": {
+          "package_name": "app.java.messagerieduseigneurdelaterredelouest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4oSBOwskeYPLKEEzPb_t3RLh9vRitNjo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:326162715822:android:9e956f33e83f0fb71b093f",
         "android_client_info": {
           "package_name": "app.java.messagerietkp"
         }

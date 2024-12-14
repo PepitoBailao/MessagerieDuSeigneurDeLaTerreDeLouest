@@ -7,23 +7,19 @@ public class Message {
     private String id;
     private String text;
     private int likes;
-    private String username; // Le nom de l'utilisateur qui a posté le message
-    private Map<String, Boolean> likedBy; // Les utilisateurs ayant liké le message
+    private String username;
+    private Map<String, Boolean> likedBy;
 
-    // Constructeur vide requis pour Firebase
-    public Message() {
-    }
+    public Message() {}
 
-    // Constructeur avec paramètres
     public Message(String id, String text, int likes, String username) {
         this.id = id;
         this.text = text;
         this.likes = likes;
         this.username = username;
-        this.likedBy = new HashMap<>(); // Initialise le champ likedBy par défaut
+        this.likedBy = new HashMap<>();
     }
 
-    // Getters et setters
     public String getId() {
         return id;
     }
@@ -57,6 +53,9 @@ public class Message {
     }
 
     public Map<String, Boolean> getLikedBy() {
+        if (likedBy == null) {
+            likedBy = new HashMap<>();
+        }
         return likedBy;
     }
 

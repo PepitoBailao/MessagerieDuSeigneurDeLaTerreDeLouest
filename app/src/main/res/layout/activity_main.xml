@@ -31,14 +31,9 @@
 
         <ImageView
             android:id="@+id/logoutimg"
-            android:layout_width="76dp"
-            android:layout_height="47dp"
-            android:layout_gravity="end"
-            android:layout_marginStart="8dp"
-            android:contentDescription="Logout Icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:src="@drawable/logout" />
-
-
     </LinearLayout>
 
     <ListView
@@ -54,8 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Balance ton message :"
-        android:padding="12dp"
-        android:layout_marginBottom="8dp" />
+        android:padding="12dp" />
 
     <Button
         android:id="@+id/sendMessageButton"
@@ -63,6 +57,5 @@
         android:layout_height="wrap_content"
         android:text="Envoyer"
         android:textColor="@color/white"
-        android:backgroundTint="@color/black"
-        android:padding="12dp" />
+        android:backgroundTint="@color/black" />
 </LinearLayout>

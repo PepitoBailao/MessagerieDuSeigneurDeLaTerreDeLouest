@@ -9,13 +9,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
-    private DatabaseReference usersRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,68 +21,61 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         auth = FirebaseAuth.getInstance();
-        usersRef = FirebaseDatabase.getInstance().getReference("users");
 
-        EditText email = findViewById(R.id.email);
-        EditText password = findViewById(R.id.password);
+        EditText emailField = findViewById(R.id.email);
+        EditText passwordField = findViewById(R.id.password);
         Button loginButton = findViewById(R.id.loginButton);
         Button registerButton = findViewById(R.id.registerButton);
 
-        loginButton.setOnClickListener(v -> {
-            String emailText = email.getText().toString().trim();
-            String passwordText = password.getText().toString().trim();
+        loginButton.setOnClickListener(v -> authenticate(emailField, passwordField, false));
+        registerButton.setOnClickListener(v -> authenticate(emailField, passwordField, true));
+    }
 
-            if (emailText.isEmpty() || passwordText.isEmpty()) {
-                Toast.makeText(this, "Remplir tous enfaite ! ", Toast.LENGTH_SHORT).show();
-                return;
+    private void authenticate(EditText emailField, EditText passwordField, boolean isRegister) {
+        String email = emailField.getText().toString().trim();
+        String password = passwordField.getText().toString().trim();
+
+        if (email.isEmpty() || password.isEmpty()) {
+            showToast("Rempli tout par contre ! ");
+            return;
+        }
+
+        if (isRegister && password.length() < 6) {
+            showToast("Mec 6 minimum aussi !");
+            return;
+        }
+
+        if (isRegister) {
+            auth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(task -> handleAuthResult(task.isSuccessful(), email, isRegister));
+        } else {
+            auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(task -> handleAuthResult(task.isSuccessful(), email, isRegister));
+        }
+    }
+
+    private void handleAuthResult(boolean success, String email, boolean isRegister) {
+        if (success) {
+            if (isRegister) {
+                String userId = auth.getCurrentUser().getUid();
+                FirebaseDatabase.getInstance().getReference("users").child(userId).setValue(new User(email));
             }
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        } else {
+            showToast(isRegister ? "Échec d'inscription !? Comment tu fais ?" : "Échec de connexion ! Non là tu force !");
+        }
+    }
 
-            auth.signInWithEmailAndPassword(emailText, passwordText)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                            finish();
-                        } else {
-                            Toast.makeText(this, "C'est un échec cuisant !  " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        });
-
-        registerButton.setOnClickListener(v -> {
-            String emailText = email.getText().toString().trim();
-            String passwordText = password.getText().toString().trim();
-
-            if (emailText.isEmpty() || passwordText.isEmpty()) {
-                Toast.makeText(this, "Je t'en conjure rempli tous ! ", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if (passwordText.length() < 6) {
-                Toast.makeText(this, "Euh... Minimum 6 caractères stp ! ", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            auth.createUserWithEmailAndPassword(emailText, passwordText)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            String userId = auth.getCurrentUser().getUid();
-                            usersRef.child(userId).setValue(new User(emailText));
-                            Toast.makeText(this, "Bien jouej !", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                            finish();
-                        } else {
-                            Toast.makeText(this, "Encore un échec ff ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        });
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }
 
 class User {
     public String email;
 
-    public User() {
-    }
+    public User() {}
 
     public User(String email) {
         this.email = email;

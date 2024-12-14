@@ -9,9 +9,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Utilisateur"
-        android:textStyle="bold"
+        android:textColor="@color/black"
         android:textSize="14sp"
-        android:textColor="@color/black"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/messageText"
@@ -30,12 +30,9 @@
             android:id="@+id/likeButton"
             android:layout_width="71dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/black"
-            android:gravity="center"
             android:text="Liker"
             android:textColor="@color/white"
-            android:textSize="15dp"
-            android:textStyle="bold" />
+            android:backgroundTint="@color/black" />
 
         <TextView
             android:id="@+id/likeCount"
@@ -44,6 +41,6 @@
             android:paddingStart="8dp"
             android:text="0"
             android:textSize="14sp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black" />
     </LinearLayout>
 </LinearLayout>
