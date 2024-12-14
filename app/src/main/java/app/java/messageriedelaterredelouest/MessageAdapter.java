@@ -1,4 +1,4 @@
-package app.java.messagerietkp;
+package app.java.messageriedelaterredelouest;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="app.java.messagerietkp">
+    package="app.java.messageriedelaterredelouest">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
 
         <!-- Activité principale : LoginActivity -->
-        <activity android:name=".LoginActivity"
+        <activity android:name="app.java.messageriedelaterredelouest.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +19,7 @@
         </activity>
 
         <!-- Activité secondaire : MainActivity -->
-        <activity android:name=".MainActivity"
+        <activity android:name="app.java.messageriedelaterredelouest.MainActivity"
             android:exported="false" />
     </application>
 </manifest>

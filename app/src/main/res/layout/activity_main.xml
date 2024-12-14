@@ -24,7 +24,7 @@
             android:id="@+id/headerTitle"
             android:layout_width="213dp"
             android:layout_height="wrap_content"
-            android:text="Messagerie TKP"
+            android:text="Messagerie du Seigneur de l'ouest"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />

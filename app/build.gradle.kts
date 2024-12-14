@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "app.java.messagerietkp"
+    namespace = "app.java.messageriedelaterredelouest"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "app.java.messagerietkp"
+        applicationId = "app.java.messageriedelaterredelouest"
         minSdk = 31
         targetSdk = 34
         versionCode = 1
