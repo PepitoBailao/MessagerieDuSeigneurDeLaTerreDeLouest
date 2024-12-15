@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "MessagerieTKP"
+rootProject.name = "MessagerieDuSeigneurDeLaTerreDeLouest"
 include(":app")
  
