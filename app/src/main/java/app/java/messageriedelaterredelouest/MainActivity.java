@@ -1,5 +1,7 @@
+// package de l'application, comme une boîte pour organiser ton code
 package app.java.messageriedelaterredelouest;
 
+// quelques imports pour utiliser les fonctions d'android et firebase
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -18,99 +20,95 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-// Définition de la classe principale qui hérite de AppCompatActivity
+// c'est la classe principale de l'activité
 public class MainActivity extends AppCompatActivity {
 
-    // Liste pour stocker les messages
+    // liste pour stocker tous les messages
     private ArrayList<Message> messages = new ArrayList<>();
-    // Adaptateur personnalisé pour afficher les messages dans une ListView
-    private MessageAdapter adapter;
+    private MessageAdapter adapter; // adaptateur pour connecter les messages à la liste
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState); // Appel de la méthode parent pour initialiser l'activité
-        setContentView(R.layout.activity_main); // Définir le layout associé à cette activité
+        super.onCreate(savedInstanceState); // appel à la méthode de base
+        setContentView(R.layout.activity_main); // connecte l'activité à son interface graphique
 
-        // Initialisation des vues depuis le fichier XML
-        EditText messageInput = findViewById(R.id.messageInput); // Champ de saisie pour les messages
-        Button sendButton = findViewById(R.id.sendMessageButton); // Bouton pour envoyer un message
-        ListView messageListView = findViewById(R.id.messageListView); // Liste pour afficher les messages
-        ImageView logoutImg = findViewById(R.id.logoutimg); // Icône pour la déconnexion
+        // on initialise les champs et boutons de l'interface
+        EditText messageInput = findViewById(R.id.messageInput); // champ pour écrire un message
+        Button sendButton = findViewById(R.id.sendMessageButton); // bouton pour envoyer
+        ListView messageListView = findViewById(R.id.messageListView); // liste pour afficher les messages
+        ImageView logoutImg = findViewById(R.id.logoutimg); // icône pour se déconnecter
 
-        // Initialisation de l'adaptateur avec la liste de messages
+        // on configure l'adaptateur pour afficher les messages dans la liste
         adapter = new MessageAdapter(this, messages);
-        messageListView.setAdapter(adapter); // Associer l'adaptateur à la ListView
+        messageListView.setAdapter(adapter);
 
-        // Gestion de l'envoi d'un message lorsque le bouton est cliqué
+        // action quand on clique sur le bouton d'envoi
         sendButton.setOnClickListener(v -> {
-            // Récupérer le texte du champ de saisie
-            String messageText = messageInput.getText().toString().trim();
-            // Vérifier si le champ est vide
-            if (messageText.isEmpty()) {
-                Toast.makeText(this, "Mets un message non ?", Toast.LENGTH_SHORT).show();
-                return; // Sortir si aucun texte n'est saisi
+            String messageText = messageInput.getText().toString().trim(); // récupère le texte
+            if (messageText.isEmpty()) { // si le champ est vide, on prévient l'utilisateur
+                Toast.makeText(this, "mets un message non ?", Toast.LENGTH_SHORT).show();
+                return;
             }
 
-            // Récupérer l'adresse e-mail de l'utilisateur connecté
-            String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail(); // Récupérer l'e-mail
-            if (userEmail == null) { // Vérifier si l'e-mail est nul
-                Toast.makeText(this, "Erreur : Impossible de récupérer l'adresse e-mail.", Toast.LENGTH_SHORT).show();
-                return; // Sortir en cas d'erreur
+            // récupère l'email de l'utilisateur actuel
+            String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+            if (userEmail == null) { // si on n'arrive pas à récupérer l'email
+                Toast.makeText(this, "erreur : impossible de récupérer l'adresse e-mail.", Toast.LENGTH_SHORT).show();
+                return;
             }
 
-            // Générer un ID unique pour le message dans la base de données Firebase
+            // crée un identifiant unique pour le message
             String messageId = FirebaseDatabase.getInstance().getReference("messages").push().getKey();
 
-            if (messageId != null) { // Vérifier si l'ID est valide
-                // Créer un nouvel objet Message avec l'ID, le texte, les likes (0), et l'e-mail de l'utilisateur
+            // si l'identifiant est valide
+            if (messageId != null) {
+                // on crée un nouvel objet message
                 Message message = new Message(messageId, messageText, 0, userEmail);
-                // Ajouter le message à la base de données sous le chemin "messages"
+
+                // on l'enregistre dans la base de données firebase
                 FirebaseDatabase.getInstance().getReference("messages")
-                        .child(messageId) // Ajouter avec l'ID unique
-                        .setValue(message) // Définir les valeurs du message
-                        .addOnSuccessListener(aVoid -> { // Gestion de la réussite de l'envoi
-                            Toast.makeText(this, "Message envoyé !", Toast.LENGTH_SHORT).show();
-                            messageInput.setText(""); // Effacer le champ de saisie après l'envoi
+                        .child(messageId)
+                        .setValue(message)
+                        .addOnSuccessListener(aVoid -> {
+                            Toast.makeText(this, "message envoyé !", Toast.LENGTH_SHORT).show();
+                            messageInput.setText(""); // vide le champ après l'envoi
                         })
-                        .addOnFailureListener(e -> // Gestion des erreurs d'envoi
-                                Toast.makeText(this, "Erreur d'envoi du message.", Toast.LENGTH_SHORT).show());
+                        .addOnFailureListener(e -> Toast.makeText(this, "erreur d'envoi du message.", Toast.LENGTH_SHORT).show());
             }
         });
 
-        // Gestion de la déconnexion lorsque l'icône est cliquée
+        // action quand on clique sur l'icône de déconnexion
         logoutImg.setOnClickListener(v -> {
-            FirebaseAuth.getInstance().signOut(); // Déconnexion de l'utilisateur
-            Toast.makeText(this, "Déconnecté.", Toast.LENGTH_SHORT).show(); // Afficher un message
-            startActivity(new Intent(this, LoginActivity.class)); // Rediriger vers l'écran de connexion
-            finish(); // Fermer l'activité actuelle
+            FirebaseAuth.getInstance().signOut(); // déconnecte l'utilisateur
+            Toast.makeText(this, "déconnecté.", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, LoginActivity.class)); // renvoie à l'écran de connexion
+            finish(); // ferme cette activité
         });
 
-        // Charger les messages existants depuis la base de données
+        // charge les messages de la base de données
         loadMessages();
     }
 
-    // Méthode pour charger les messages depuis Firebase
     private void loadMessages() {
-        // Requête Firebase pour récupérer les messages triés par nombre de likes
+        // connecte à firebase et récupère les messages triés par "likes"
         FirebaseDatabase.getInstance().getReference("messages")
-                .orderByChild("likes") // Trier par le champ "likes"
-                .addValueEventListener(new ValueEventListener() { // Ajouter un écouteur d'événements
+                .orderByChild("likes")
+                .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
-                        messages.clear(); // Effacer la liste locale avant d'ajouter les nouveaux messages
-                        for (DataSnapshot data : snapshot.getChildren()) { // Parcourir chaque noeud
-                            Message message = data.getValue(Message.class); // Convertir les données en objet Message
-                            if (message != null) { // Ajouter le message à la liste locale
-                                messages.add(0, message); // Ajouter au début de la liste
+                        messages.clear(); // vide la liste actuelle
+                        for (DataSnapshot data : snapshot.getChildren()) { // parcourt chaque message
+                            Message message = data.getValue(Message.class); // convertit les données en objet message
+                            if (message != null) { // si le message est valide
+                                messages.add(0, message); // ajoute à la liste (au début)
                             }
                         }
-                        adapter.notifyDataSetChanged(); // Notifier l'adaptateur pour mettre à jour l'affichage
+                        adapter.notifyDataSetChanged(); // dit à l'adaptateur que la liste a changé
                     }
 
                     @Override
                     public void onCancelled(DatabaseError error) {
-                        // Afficher un message en cas d'erreur de lecture des données
-                        Toast.makeText(MainActivity.this, "Erreur de chargement des messages.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "erreur de chargement des messages.", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

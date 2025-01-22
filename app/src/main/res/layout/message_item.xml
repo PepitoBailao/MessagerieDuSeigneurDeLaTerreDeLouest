@@ -30,7 +30,7 @@
             android:id="@+id/likeButton"
             android:layout_width="71dp"
             android:layout_height="wrap_content"
-            android:text="Liker"
+            android:text="🧡"
             android:textColor="@color/white"
             android:backgroundTint="@color/black" />
 
